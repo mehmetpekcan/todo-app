@@ -1,5 +1,9 @@
 @import './mixins.scss';
 
+*, html, body {
+  box-sizing: border-box !important;
+}
+
 html {
   font-size: 15px;
 }
