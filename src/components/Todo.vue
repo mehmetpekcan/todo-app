@@ -1,5 +1,5 @@
 <template>
-<div class="todo--wrapper d-flex justify-content-between align-items-center">
+<div class="todo--wrapper d-flex justify-content-between align-items-center" :class="{ 'completed': isCompleted }">
   <div class="d-flex align-items-center">
     <div class="todo--check mr-2" :class="{ 'completed': isCompleted }">
       <i class="fas fa-check font-size-12" :class="{ 'd-none': !isCompleted }" />
@@ -20,6 +20,9 @@
       <span class="">30 min</span>
     </div>
   </div>
+  <div class="todo--delete">
+    <i class="fas fa-trash p-1 font-size-14 bg-red text-white" />
+  </div>
 </div>
 </template>
 
@@ -39,6 +42,22 @@ export default {
 .todo--wrapper {
   cursor: pointer;
   padding: .5rem 0;
+  transition: opacity .5s ease;
+
+  &.completed {
+    opacity: .5;
+    transition: opacity .5s ease;
+
+    .todo--check {
+      transition: .2s all ease-in;
+      background: $blue-light;
+      border: 1px solid $blue-light;
+
+      .fa-check {
+        color: #fff;
+      }
+    }
+  }
 
   .todo--check {
     border: 1px solid $dark;
@@ -50,16 +69,6 @@ export default {
     border-radius: 50rem;
     position: relative;
     transition: .2s all ease-in;
-  
-    &.completed {
-      transition: .2s all ease-in;
-      background: $blue-light;
-      border: 1px solid $blue-light;
-  
-      .fa-check {
-        color: #fff;
-      }
-    }
   
     input {
       position: absolute;

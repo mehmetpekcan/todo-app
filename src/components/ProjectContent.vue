@@ -16,7 +16,7 @@
     </div>
     <div class="todos--wrapper mt-5">
       <div class="todos--title pb-3 border-bottom border-gray-3 d-flex justify-content-between align-items-center">
-        <p class="font-size-24 mb-0" style="font-weight: 600;">Tomorrow</p>
+        <p class="font-size-24 mb-0" style="font-weight: 600;">Later</p>
       </div>
       <div class="todos--content-wrapper">
         <div class="todo my-4" v-for="(item, key) in 6" :key="key">
