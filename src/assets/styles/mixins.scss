@@ -1,9 +1,10 @@
 // Colors
 $white: #ecf0f1;
-$black: #2c3e50;
+$black: #262b41;
 $blue: #1d7bd3;
 $blue-light: #42baf9;
 $blue-dark: #2c60e4;
+$dark-gray: #474b60;
 $gray-1: #f2f4f8;
 $gray-2: #e4e9f0;
 $gray-3: #d9dee9;
@@ -31,16 +32,9 @@ $danger: $red;
 $light: $gray-1;
 $dark: $black;
 
-// dark theme
-$dark-gray-1: #aeaee0;
-$dark-gray-2: #7575a3;
-$dark-gray-3: #4f4f7a;
-$dark-gray-4: #232135;
-$dark-gray-5: #141322;
-$dark-gray-6: #0c0c1b;
 
 // Font Family
-$base-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$base-font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 
 // Font Size
 $base-font-size: 15 !default;
