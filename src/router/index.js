@@ -5,7 +5,18 @@ import Home from "@/layouts/Home"
 Vue.use(VueRouter)
 
 const routes = [
-  { name: 'Home', path: '/', component: Home }
+  {
+    name: 'Home',
+    path: '/',
+    component: Home,
+    children: [
+      {
+        name: "Project",
+        path: "/project/:name",
+        component: () => import("@/components/ProjectContent")
+      }
+    ] 
+  }
 ]
 
 export default new VueRouter({
