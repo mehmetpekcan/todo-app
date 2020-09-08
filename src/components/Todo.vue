@@ -1,15 +1,15 @@
 <template>
-<div class="todo--wrapper d-flex justify-content-between align-items-center" :class="{ 'completed': isCompleted }">
-  <div class="d-flex align-items-center">
+<div class="todo--wrapper d-flex justify-content-between align-items-center w-100" :class="{ 'completed': isCompleted }">
+  <div class="d-flex align-items-center" style="width: 60%">
     <div class="todo--check mr-2" :class="{ 'completed': isCompleted }">
       <i class="fas fa-check font-size-12" :class="{ 'd-none': !isCompleted }" />
       <input type="checkbox" v-model="isCompleted">
     </div>
-    <div class="todo--content text-dark font-size-14">
-      <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, ducimus.</p>
+    <div class="todo--content text-dark font-size-14" style="width: 90%;">
+      <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit.  nemo pariatur!</p>
     </div>
   </div>
-  <div class="d-flex">
+  <div class="d-flex" style="width: 35">
     <div class="todo--tags">
       <span class="todo--tags-tag p-1 px-2 first font-size-12">First Pri.</span>
       <span class="todo--tags-tag p-1 px-2 second font-size-12">Second Pri.</span>
@@ -21,7 +21,15 @@
     </div>
   </div>
   <div class="todo--delete">
-    <i class="fas fa-trash p-1 font-size-14 bg-red text-white" />
+    <a-popconfirm
+      placement="bottom"
+      title="Are you sure to delete task?"
+      ok-text="Yes"
+      cancel-text="No"
+      @confirm="deleteTask"
+      >
+      <i class="fas fa-trash" />
+    </a-popconfirm>
   </div>
 </div>
 </template>
@@ -32,6 +40,11 @@ export default {
     return {
       isCompleted: false,
     }
+  },
+  methods: {
+    deleteTask() {
+      console.log("delete")
+    }
   }
 }
 </script>
@@ -40,13 +53,16 @@ export default {
 @import "@/assets/styles/mixins.scss";
 
 .todo--wrapper {
-  cursor: pointer;
   padding: .5rem 0;
-  transition: opacity .5s ease;
-
+  transition: all .5s ease;
+  
   &.completed {
     opacity: .5;
-    transition: opacity .5s ease;
+    transition: all .5s ease;
+    
+    .todo--content {
+      text-decoration: line-through;
+    }
 
     .todo--check {
       transition: .2s all ease-in;
@@ -112,11 +128,21 @@ export default {
       }
     }
   }
-
+  
   .todo--timer {
     border-radius: .2rem;
     box-shadow: 0 5px 10px -5px $dark;
     background-color: $dark;
+    color: $white;
+  }
+  
+  .todo--delete {
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 5px 10px -7px $red;
+    padding: .2rem .5rem;
+    background: $red;
+    border-radius: .2rem;
     color: $white;
   }
 }
