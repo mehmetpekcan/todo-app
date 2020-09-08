@@ -1,7 +1,7 @@
 @import "./mixins.scss";
 
 .gradient-dark {
-  background: linear-gradient(45deg, #262b41, #222f3e);
+  background: linear-gradient(145deg, #262b41, #222f3e);
 }
 
 .text {
@@ -210,4 +210,29 @@
   &-gray-6 {
     border-color: $gray-6 !important;
   }
+}
+
+.gradient-1 {
+  background: linear-gradient(to right top, #1ec3e5, #00b8ea, #00abed, #009eee, #128feb);
+  box-shadow: 0 8px 15px -12px #128feb;
+}
+.gradient-2 {
+  background: linear-gradient(to right top, #8E2DE2, #4A00E0);
+  box-shadow: 0 8px 15px -12px #4A00E0;
+}
+.gradient-3 {
+  background: linear-gradient(to right top, #f12711, #f5af19);
+  box-shadow: 0 8px 15px -12px #f12711;
+}
+.gradient-4 {
+  background: linear-gradient(to right top, #e51e1e, #ce1222, #b70723, #9f0223, #880021);
+  box-shadow: 0 8px 15px -12px #880021;
+}
+.gradient-5 {
+  background: linear-gradient(to right top, #dde51e, #c6d517, #b0c60f, #9bb607, #87a700);
+  box-shadow: 0 8px 15px -12px #87a700;
+}
+.gradient-6 {
+  background: linear-gradient(to right top, #1ed6e5, #14c2cc, #0caeb3, #049b9b, #008885);
+  box-shadow: 0 8px 15px -12px #008885;
 }
