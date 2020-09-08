@@ -1,3 +1,7 @@
+.gradient-dark {
+  background: linear-gradient(-45deg, $dark, #0a3d62);
+}
+
 .text {
   &-default {
     color: $default !important;
