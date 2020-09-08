@@ -1,0 +1,60 @@
+@import './mixins.scss';
+
+html {
+  font-size: 15px;
+}
+
+body {
+  font-size: 1rem;
+  line-height: 1.5;
+  font-family: $base-font-family;
+  color: $text;
+  overflow-x: hidden;
+  position: relative;
+  font-variant: normal;
+  font-feature-settings: normal;
+}
+
+a {
+  text-decoration: none;
+  color: $text;
+  &:hover,
+  &:active,
+  &:focus {
+    color: $blue;
+    text-decoration: none;
+  }
+}
+
+input {
+  outline: none !important;
+  font-family: $base-font-family;
+  color: $text;
+}
+
+button,
+input {
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+input[type='text'],
+input[type='password'],
+input[type='email'],
+textarea {
+  appearance: none !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: $black;
+}
+
+svg {
+  vertical-align: initial;
+  overflow: auto;
+}
