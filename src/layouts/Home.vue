@@ -14,7 +14,7 @@
             <div>
               <p class="d-flex font-size-16 text-white mt-5">Projects <span class="font-size-14 text-light ml-2">(3)</span></p>
               <div class="d-flex flex-wrap justify-content-between">
-                <div v-for="(item, key) in mockCards" :key="key" class="my-2">
+                <div v-for="(item, key) in mockCards" :key="key" class="my-3">
                   <project-card :project="item" />
                 </div>
               </div>
@@ -44,31 +44,37 @@ export default {
     return {
       mockCards: [
         {
+          key: 1,
           slug: "green-house",
           name: "Green House",
           shorthand: "GH",
         },
         {
+          key: 2,
           slug: "cyber-punk",
           name: "Cyber Punk",
           shorthand: "CP",
         },
         {
+          key: 3,
           slug: "easy-crypto",
           name: "Easy Crpyto",
           shorthand: "EC",
         },
         {
+          key: 4,
           slug: "travel-app",
           name: "Travel App",
-          shorthand: "Ta",
+          shorthand: "TA",
         },
         {
+          key: 5,
           slug: "landing-page",
           name: "Landing Page",
           shorthand: "LP",
         },
         {
+          key: 6,
           slug: "work",
           name: "Work",
           shorthand: "W",
