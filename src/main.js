@@ -3,9 +3,6 @@ import App from "./App.vue"
 import router from "./router"
 import store from "./store"
 
-/** Ant Design Component Library */
-import "@/components/Antd"
-
 /**
  * 
  * Project general css files.
