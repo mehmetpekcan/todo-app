@@ -10,7 +10,7 @@
         <i class="fas fa-ellipsis-h font-size-24 text-gray-5" />
       </div>
       <div class="todos--content-wrapper">
-        <div class="todo">
+        <div class="todo my-4" v-for="(item, key) in 6" :key="key">
           <todo />
         </div>
       </div>
