@@ -28,8 +28,7 @@ export default {
   cursor: pointer;
   
   .project--card {
-    width: 8.5rem;
-    height: 8.5rem;
+    height: 8rem;
     color: $white;
     border-radius: 1.5rem;
   }

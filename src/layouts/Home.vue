@@ -14,7 +14,7 @@
             <div>
               <p class="d-flex font-size-16 text-white mt-5">Projects <span class="font-size-14 text-light ml-2">({{ mockCards.length }})</span></p>
               <div class="d-flex flex-wrap justify-content-between">
-                <div v-for="(item, key) in mockCards" :key="key" class="my-3">
+                <div v-for="(item, key) in mockCards" :key="key" class="my-3" style="width: 30%;">
                   <project-card :project="item" />
                 </div>
               </div>
