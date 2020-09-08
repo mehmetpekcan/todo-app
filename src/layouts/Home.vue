@@ -1,7 +1,7 @@
 <template>
   <div style="height: 100vh">
     <div class="row h-100 gradient-dark p-3 m-0">
-      <div class="col-xl-4">
+      <div class="col-xl-4" style="overflow: hidden;">
         <div class="row h-100 d-flex justify-content-center">
           <div class="col-xl-9 d-flex flex-column justify-content-center">
             <div>
@@ -22,7 +22,7 @@
           </div>
         </div>
       </div>
-      <div class="col-xl-8 bg-white" style="border-radius: 1rem;">
+      <div class="col-xl-8 bg-white h-100" style="border-radius: 1rem; overflow-y: scroll;">
         <div class="row">
           <div class="col-xl-12" style="padding: 5rem;">
             <transition name="fade" mode="out-in">
