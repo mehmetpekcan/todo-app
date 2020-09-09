@@ -46,7 +46,7 @@
       <div class="todos--content-wrapper">
         <a-spin :spinning="$store.state.todoSpin" tip="Todos fetching...">
           <div class="todo my-4" v-for="(item, key) in $store.state.todos" :key="key">
-            <todo :project="item[1]" />
+            <todo :project="item" />
           </div>
         </a-spin>
       </div>
@@ -74,7 +74,10 @@ export default {
   computed: {
     newTodo() {
       return this.$store.state.newTodo
-    }
+    },
+    isDelete() {
+      return this.$store.state.isDelete
+    },
   },
   created() {
     const getProjects = setInterval(() => {
@@ -88,6 +91,11 @@ export default {
   watch: {
     newTodo() {
       this.$store.dispatch("get_todos", this.project[0])
+    },
+    isDelete(val) {
+      if (val === false) {
+        this.$store.dispatch("get_todos", this.project[0])
+      }
     }
   },
   components: { Todo, NewTask },

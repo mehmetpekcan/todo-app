@@ -1,37 +1,37 @@
 <template>
-<div class="todo--wrapper d-flex justify-content-between align-items-center w-100" :class="{ 'completed': isCompleted }">
-  <div class="d-flex align-items-center" style="width: 60%">
-    <div class="todo--check mr-2" :class="{ 'completed': isCompleted }">
-      <i class="fas fa-check font-size-12" :class="{ 'd-none': !isCompleted }" />
-      <input type="checkbox" v-model="isCompleted">
+  <div class="todo--wrapper d-flex justify-content-between align-items-center w-100" :class="{ 'completed': isCompleted }">
+    <div class="d-flex align-items-center" style="width: 60%">
+      <div class="todo--check mr-2" :class="{ 'completed': isCompleted }">
+        <i class="fas fa-check font-size-12" :class="{ 'd-none': !isCompleted }" />
+        <input type="checkbox" v-model="isCompleted">
+      </div>
+      <div class="todo--content text-dark font-size-14" style="width: 90%;">
+        <p class="mb-0">{{ project[1].description }}</p>
+      </div>
     </div>
-    <div class="todo--content text-dark font-size-14" style="width: 90%;">
-      <p class="mb-0">{{ project.description }}</p>
+    <div class="d-flex align-items-center" style="width: 35">
+      <div class="todo--tags d-flex align-items-center" v-if="typeof tags !== 'undefined'">
+        <span class="todo--tags-tag px-2 p-1 first font-size-12" v-if="tags.some(item => item === '0')">First Pri.</span>
+        <span class="todo--tags-tag px-2 p-1 second font-size-12" v-if="tags.some(item => item === '1')">Second Pri.</span>
+        <span class="todo--tags-tag px-2 p-1 third font-size-12" v-if="tags.some(item => item === '2')">Third Pri.</span>
+      </div>
+      <div class="todo--timer font-size-12 px-2 mr-2 p-1" v-if="typeof counter !== 'undefined'">
+        <i class="fas fa-stopwatch mr-1"></i>
+        <span class="m-0">{{ counter.slice(0, 2) }} hours {{ counter.slice(3, 5) }} min.</span>
+      </div>
+      <div class="todo--delete d-flex align-items-center p-1">
+        <a-popconfirm
+          placement="bottomLeft"
+          title="Are you sure to delete task?"
+          ok-text="Yes"
+          cancel-text="No"
+          @confirm="deleteTask"
+          >
+          <i class="fas fa-trash" />
+        </a-popconfirm>
+      </div>
     </div>
   </div>
-  <div class="d-flex align-items-center" style="width: 35">
-    <div class="todo--tags d-flex align-items-center" v-if="typeof tags !== 'undefined'">
-      <span class="todo--tags-tag px-2 p-1 first font-size-12" v-if="tags.some(item => item === '0')">First Pri.</span>
-      <span class="todo--tags-tag px-2 p-1 second font-size-12" v-if="tags.some(item => item === '1')">Second Pri.</span>
-      <span class="todo--tags-tag px-2 p-1 third font-size-12" v-if="tags.some(item => item === '2')">Third Pri.</span>
-    </div>
-    <div class="todo--timer font-size-12 px-2 mr-2 p-1" v-if="typeof counter !== 'undefined'">
-      <i class="fas fa-stopwatch mr-1"></i>
-      <span class="m-0">{{ counter.slice(0, 2) }} hours {{ counter.slice(3, 5) }} min.</span>
-    </div>
-    <div class="todo--delete d-flex align-items-center p-1">
-      <a-popconfirm
-        placement="bottomLeft"
-        title="Are you sure to delete task?"
-        ok-text="Yes"
-        cancel-text="No"
-        @confirm="deleteTask"
-        >
-        <i class="fas fa-trash" />
-      </a-popconfirm>
-    </div>
-  </div>
-</div>
 </template>
 
 <script>
@@ -43,10 +43,10 @@ export default {
   },
   computed: {
     tags() {
-      return this.project.tags
+      return this.project[1].tags
     },
     counter() {
-      return this.project.counter
+      return this.project[1].counter
     }
   },
   props: {
@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     deleteTask() {
-      console.log("delete")
+      this.$store.dispatch("delete_todo", this.project[0])
     }
   }
 }

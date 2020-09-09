@@ -14,6 +14,8 @@ export default new Vuex.Store({
     todos: [],
     isNewTask: false,
     emptyTodos: false,
+    isDelete: false,
+    currentProjectID: ""
   },
   mutations: {
     SET_STATE(state, payload) {
@@ -76,6 +78,8 @@ export default new Vuex.Store({
 
       commit("SET_STATE", { todoSpin: true })
       const res = await axios.get(`https://todo-app-11-7692e.firebaseio.com/projects/${projectId}/todos.json`)
+      commit("SET_STATE", { currentProjectID: projectId })
+
       if (res.data !== null) {
         commit("SET_STATE", { todos: Object.entries(res.data) })
         commit("SET_STATE", { emptyTodos: false })
@@ -84,6 +88,11 @@ export default new Vuex.Store({
         commit("SET_STATE", { emptyTodos: true })
         commit("SET_STATE", { todoSpin: false })
       }
+    },
+    async delete_todo({ commit, state }, payload) {
+      commit("SET_STATE", { isDelete: true })
+      await axios.delete(`https://todo-app-11-7692e.firebaseio.com/projects/${state.currentProjectID}/todos/${payload}.json`)
+      commit("SET_STATE", { isDelete: false })
     }
   },
 
