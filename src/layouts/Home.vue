@@ -1,7 +1,7 @@
 <template>
-  <div style="height: 100vh">
-    <div class="row h-100 p-3 m-0">
-      <div class="col-lg-4" style="overflow: hidden;">
+  <div class="h-100">
+    <div class="row h-100 px-3 m-0">
+      <div class="col-lg-4 my-3" style="overflow: hidden;">
         <div class="row h-100 d-flex justify-content-center">
           <div class="col-xl-9 d-flex flex-column justify-content-center">
             <div>
@@ -29,9 +29,9 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-8 bg-white h-100" style="border-radius: 1rem; overflow-y: scroll;">
+      <div class="col-lg-8 bg-white my-3" style="border-radius: 1rem; overflow-y: scroll;">
         <div class="row">
-          <div class="col-xl-12" style="padding: 5rem;">
+          <div class="col-xl-12" style="padding: 4rem;">
             <transition name="fade" mode="out-in">
               <router-view :key="$route.path" />
             </transition>
