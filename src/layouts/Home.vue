@@ -58,6 +58,11 @@ export default {
   watch: {
     newProject () {
       this.$store.dispatch("get_projects")
+        .then(res => {
+          if (res) {
+            this.projects = this.$store.state.projects
+          }
+        })
     }
   },
   created() {

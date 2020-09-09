@@ -21,7 +21,7 @@
     </div>
     <div class="todo--delete d-flex align-items-center p-1">
       <a-popconfirm
-        placement="bottom"
+        placement="bottomLeft"
         title="Are you sure to delete task?"
         ok-text="Yes"
         cancel-text="No"

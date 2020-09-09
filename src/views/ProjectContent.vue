@@ -7,7 +7,7 @@
     <div class="d-flex justify-content-between align-items-center">
       <div class="title" v-if="project.length > 0">
         <p class="mb-1 font-size-16 text-dark text-uppercase font-weight-bold">{{ project[0][1].project_name }}</p>
-        <p class="mb-0 font-size-12 w-50 text-secondary">{{ project[0][1].project_description }}</p>
+        <p class="mb-0 font-size-12 text-secondary">{{ project[0][1].project_description }}</p>
       </div>
       <div 
         @click="$store.commit('SET_STATE', { isNewTask: true })"
@@ -18,7 +18,7 @@
         <span>Add New Task</span>
       </div>
     </div>
-    <div class="todos--wrapper mt-5">
+    <div class="todos--wrapper mt-5" v-if="!$store.state.emptyTodos">
       <div class="d-flex align-items-center justify-content-between border-gray-3 pb-3 border-bottom">
         <div class="todos--title d-flex justify-content-between align-items-center">
           <p class="font-size-24 mb-0" style="font-weight: 600;">All</p>
@@ -51,6 +51,13 @@
         </a-spin>
       </div>
     </div>
+    <div v-else class="d-flex flex-column align-items-center">
+      <div class="width-500" style="margin-top: 10rem;">
+        <img class="w-100" src="@/assets/images/no-data.svg" alt="No todos">
+      </div>
+      <p class="font-weight-bold font-size-32 mt-3 mb-0">Currently, you don't have any todos.</p>
+      <p>Create your first todo!</p>
+    </div>
   </div>
 </template>
 
@@ -61,7 +68,7 @@ import NewTask from "@/views/NewTask"
 export default {
   data() {
     return {
-      project: ""
+      project: "",
     }
   },
   computed: {

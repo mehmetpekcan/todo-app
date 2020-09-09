@@ -13,6 +13,7 @@ export default new Vuex.Store({
     isCreatingNewTodo: false,
     todos: [],
     isNewTask: false,
+    emptyTodos: false,
   },
   mutations: {
     SET_STATE(state, payload) {
@@ -75,9 +76,14 @@ export default new Vuex.Store({
 
       commit("SET_STATE", { todoSpin: true })
       const res = await axios.get(`https://todo-app-11-7692e.firebaseio.com/projects/${projectId}/todos.json`)
-      
-      commit("SET_STATE", { todos: Object.entries(res.data) })
-      commit("SET_STATE", { todoSpin: false })
+      if (res.data !== null) {
+        commit("SET_STATE", { todos: Object.entries(res.data) })
+        commit("SET_STATE", { emptyTodos: false })
+        commit("SET_STATE", { todoSpin: false })
+      } else {
+        commit("SET_STATE", { emptyTodos: true })
+        commit("SET_STATE", { todoSpin: false })
+      }
     }
   },
 
