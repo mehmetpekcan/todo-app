@@ -44,9 +44,11 @@
         </a-dropdown>
       </div>
       <div class="todos--content-wrapper">
-        <div class="todo my-4" v-for="(item, key) in 4" :key="key">
-          <todo :projectKey="project[0]" />
-        </div>
+        <a-spin :spinning="$store.state.todoSpin" tip="Todos fetching...">
+          <div class="todo my-4" v-for="(item, key) in $store.state.todos" :key="key">
+            <todo :projectKey="project[0]" />
+          </div>
+        </a-spin>
       </div>
     </div>
   </div>
@@ -66,6 +68,9 @@ export default {
     project() {
       return this.$store.state.projects.filter(item => item[1].project_shortname === this.$route.params.name)
     }
+  },
+  created() {
+    this.$store.dispatch("get_todos", this.project[0])
   },
   components: { Todo, NewTask },
 }  

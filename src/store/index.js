@@ -8,6 +8,9 @@ export default new Vuex.Store({
   state: {
     projects: [],
     newProject: false,
+    newTodo: false,
+    todoSpin: false,
+    todos: [],
   },
   mutations: {
     SET_STATE(state, payload) {
@@ -35,13 +38,29 @@ export default new Vuex.Store({
         return true
       }
     },
+    /*-----------------------------------
+    |
+    | To post new todo
+    | @projectKey: which project you want to add new todo
+    | @id: todo id for firebase key value
+    |
+    -----------------------------------*/
     async post_newTodo({ commit }, payload) {
       const id = parseInt(Math.random() * 100 + Math.random() * 200)
       const res = await axios.patch(`https://todo-app-11-7692e.firebaseio.com/projects/${payload.projectKey}/todos/${id}.json`, { 
         ...payload.data
       })
-      commit("SET_STATE")
-      console.log("bu res", res)
+      if (res.data !== null) {
+        commit("SET_STATE", { newTodo: true })
+      }
+    },
+    async get_todos({ commit }, payload) {
+      commit("SET_STATE", { todoSpin: true })
+      const res = await axios.get(`https://todo-app-11-7692e.firebaseio.com/projects/${payload[0]}/todos.json`)
+      
+      commit("SET_STATE", { todos: Object.entries(res.data) })
+      commit("SET_STATE", { todoSpin: false })
+      
     }
   },
 

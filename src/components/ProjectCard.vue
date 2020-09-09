@@ -1,5 +1,5 @@
 <template>
-  <router-link exact :to="{ name: 'Project', params: { name: project.project_shortname }}">
+  <router-link exact :to="{ name: 'Project', params: { name: project[1].project_shortname }}">
     <div class="project--card-wrapper d-flex flex-column aling-items-center justify-content-center text-center">
       <div class="project--card d-flex align-items-center justify-content-center" :class="`gradient-${gradientKey + 1}`">
         <p class="mb-0 font-weight-bold font-size-28">{{ project[1].project_shortname }}</p>
