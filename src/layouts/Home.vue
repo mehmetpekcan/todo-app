@@ -17,6 +17,9 @@
                 <div v-for="(item, key) in mockCards" :key="key" class="my-3" style="width: 30%;">
                   <project-card :project="item" />
                 </div>
+                <div class="my-3" style="width: 30%;">
+                  <new-project-card />
+                </div>
               </div>
             </div>
           </div>
@@ -38,6 +41,7 @@
 <script>
 import SearchBar from "@/components/SearchBar"
 import ProjectCard from "@/components/ProjectCard"
+import NewProjectCard from "@/components/NewProjectCard"
 
 export default {
   data() {
@@ -73,16 +77,10 @@ export default {
           name: "Landing Page",
           shorthand: "LP",
         },
-        {
-          key: 6,
-          slug: "work",
-          name: "Work",
-          shorthand: "W",
-        },
       ]
     }
   },
-  components: { SearchBar, ProjectCard }
+  components: { SearchBar, ProjectCard, NewProjectCard }
 }
 </script>
 
