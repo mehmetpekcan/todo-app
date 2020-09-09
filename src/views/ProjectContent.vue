@@ -69,9 +69,14 @@ export default {
       return this.$store.state.newTodo
     }
   },
-  beforeMount() {
-    this.project = this.$store.state.projects.filter(item => item[1].project_shortname === this.$route.params.name)
-    this.$store.dispatch("get_todos", this.project[0])
+  created() {
+    const getProjects = setInterval(() => {
+      if (this.$store.state.projects.length > 0) {
+        this.project = this.$store.state.projects.filter(item => item[1].project_shortname === this.$route.params.name)
+        this.$store.dispatch("get_todos", this.project[0])
+        clearInterval(getProjects)
+      }
+    })
   },
   watch: {
     newTodo() {

@@ -26,6 +26,9 @@ export default new Vuex.Store({
     async get_projects({ commit }) {
       const res = await axios.get("https://todo-app-11-7692e.firebaseio.com/projects.json")
       commit("SET_STATE", { projects: Object.entries(res.data) })
+      if (res.status === 200) {
+        return true
+      } 
     },
     /*-----------------------------------
     | To post new project

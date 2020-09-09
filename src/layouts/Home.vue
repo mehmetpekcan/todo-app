@@ -12,9 +12,9 @@
               <search-bar></search-bar>
             </div>
             <div>
-              <p class="d-flex font-size-16 text-white mt-5">Projects <span class="font-size-14 text-light ml-2">({{ $store.state.projects.length }})</span></p>
+              <p class="d-flex font-size-16 text-white mt-5">Projects <span class="font-size-14 text-light ml-2">({{ projects.length }})</span></p>
               <div class="d-flex flex-wrap justify-content-between">
-                <div v-for="(item, key) in $store.state.projects" :key="key" class="my-3" style="width: 30%;">
+                <div v-for="(item, key) in projects" :key="key" class="my-3" style="width: 30%;">
                   <project-card :project="item" :gradientKey="key" />
                 </div>
                 <div class="my-3" style="width: 30%;">
@@ -45,6 +45,11 @@ import NewProjectCard from "@/components/NewProjectCard"
 
 export default {
   components: { SearchBar, ProjectCard, NewProjectCard },
+  data() {
+    return {
+      projects: []
+    }
+  },
   computed: {
     newProject() {
       return this.$store.state.newProject
@@ -54,6 +59,14 @@ export default {
     newProject () {
       this.$store.dispatch("get_projects")
     }
+  },
+  created() {
+    this.$store.dispatch("get_projects")
+      .then(res => {
+        if (res) {
+          this.projects = this.$store.state.projects
+        }
+      })
   }
 }
 </script>
