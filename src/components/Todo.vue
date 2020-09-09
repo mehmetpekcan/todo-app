@@ -3,7 +3,7 @@
     <div class="d-flex align-items-center" style="width: 60%">
       <div class="todo--check mr-2" :class="{ 'completed': isCompleted }">
         <i class="fas fa-check font-size-12" :class="{ 'd-none': !isCompleted }" />
-        <input type="checkbox" v-model="isCompleted">
+        <input type="checkbox" v-model="isCompleted" @input="statusChange">
       </div>
       <div class="todo--content text-dark font-size-14" style="width: 90%;">
         <p class="mb-0">{{ project[1].description }}</p>
@@ -55,6 +55,17 @@ export default {
   methods: {
     deleteTask() {
       this.$store.dispatch("delete_todo", this.project[0])
+    },
+    statusChange() {
+      const completed = this.isCompleted === true ? 1 : 0
+      this.$store.dispatch("change_todoStatus", { id: this.project[0], completed })
+    }
+  },
+  created() {
+    if (this.project[1].completed === 1) {
+      this.isCompleted = true
+    } else {
+      this.isCompleted = false
     }
   }
 }
@@ -155,5 +166,4 @@ export default {
     color: $dark-gray;
   }
 }
-
 </style>

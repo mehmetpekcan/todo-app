@@ -15,7 +15,9 @@
               <p class="d-flex font-size-16 text-white mt-5">Projects <span class="font-size-14 text-light ml-2">({{ projects.length }})</span></p>
               <div class="d-flex flex-wrap justify-content-between">
                 <div v-for="(item, key) in projects" :key="key" class="my-3" style="width: 30%;">
-                  <project-card :project="item" :gradientKey="key" />
+                  <router-link exact :to="{ name: 'Project', params: { name: item[1].project_shortname }}">
+                    <project-card :project="item" :gradientKey="key" />
+                  </router-link>
                 </div>
                 <div class="my-3" style="width: 30%;">
                   <new-project-card />
@@ -28,9 +30,9 @@
       <div class="col-xl-8 bg-white h-100" style="border-radius: 1rem; overflow-y: scroll;">
         <div class="row">
           <div class="col-xl-12" style="padding: 5rem;">
-            <transition name="fade" mode="out-in">
+            <vue-page-transition name="fade-in">
               <router-view :key="$route.path" />
-            </transition>
+            </vue-page-transition>
           </div>
         </div>
       </div>
@@ -78,7 +80,7 @@ export default {
 
 <style scoped>
 .fade-enter-active, .fade-leave-active {
-  transition: opacity .3s ease-in;
+  transition: opacity .3s ease-in-out;
 }
 .fade-enter, .fade-leave-to {
   opacity: 0;

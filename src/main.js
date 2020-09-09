@@ -3,10 +3,12 @@ import App from "./App.vue"
 import router from "./router"
 import store from "./store"
 
-
-
 /** Ant Design Component Library */
 import "@/Antd"
+
+/** Page Transition for Route */
+import VuePageTransition from 'vue-page-transition'
+Vue.use(VuePageTransition)
 
 /**
  * 

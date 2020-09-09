@@ -59,7 +59,8 @@ export default new Vuex.Store({
       const projectKey = payload.projectKey
       const id = parseInt(Math.random() * 100 + Math.random() * 200)
       const res = await axios.patch(`https://todo-app-11-7692e.firebaseio.com/projects/${projectKey}/todos/${id}.json`, { 
-        ...payload.data
+        ...payload.data,
+        completed: 0
       })
       if (res.data !== null) {
         commit("SET_STATE", { newTodo: true })
@@ -93,6 +94,12 @@ export default new Vuex.Store({
       commit("SET_STATE", { isDelete: true })
       await axios.delete(`https://todo-app-11-7692e.firebaseio.com/projects/${state.currentProjectID}/todos/${payload}.json`)
       commit("SET_STATE", { isDelete: false })
+    },
+    async change_todoStatus({ state }, payload) {
+      const { completed } = payload
+      await axios.patch(`https://todo-app-11-7692e.firebaseio.com/projects/${state.currentProjectID}/todos/${payload.id}.json`, { 
+        completed
+      })
     }
   },
 

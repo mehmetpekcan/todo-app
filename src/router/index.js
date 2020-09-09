@@ -14,9 +14,9 @@ const routes = [
         name: "Project",
         path: "/project/:name",
         component: () => import("@/views/ProjectContent")
-      }
-    ] 
-  }
+      },
+    ]
+  },
 ]
 
 export default new VueRouter({

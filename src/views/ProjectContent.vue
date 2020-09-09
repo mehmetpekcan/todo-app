@@ -1,6 +1,6 @@
 <template>
   <div style="overflow-y: scroll !important;">
-    <a-modal v-model="$store.state.isNewTask" title="Add New Task" :footer="null">
+    <a-modal v-model="$store.state.isNewTask" title="Add New Task" :footer="null" :destroyOnClose="true">
       <new-task :projectKey="project[0]" />
     </a-modal>
 
@@ -79,7 +79,7 @@ export default {
       return this.$store.state.isDelete
     },
   },
-  created() {
+  mounted() {
     const getProjects = setInterval(() => {
       if (this.$store.state.projects.length > 0) {
         this.project = this.$store.state.projects.filter(item => item[1].project_shortname === this.$route.params.name)
