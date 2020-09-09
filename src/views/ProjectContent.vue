@@ -6,8 +6,8 @@
 
     <div class="d-flex justify-content-between align-items-center">
       <div class="title">
-        <p class="mb-1 font-size-16 text-dark text-uppercase font-weight-bold">{{ $route.params.name }}</p>
-        <p class="mb-0 font-size-12 w-50 text-secondary">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia vero odit voluptatum at sint, ipsa illum aliquid quis quam aperiam.</p>
+        <p class="mb-1 font-size-16 text-dark text-uppercase font-weight-bold">{{ project[0].project_name }}</p>
+        <p class="mb-0 font-size-12 w-50 text-secondary">{{ project[0].project_description }}</p>
       </div>
       <div 
         @click="newTask"
@@ -60,6 +60,11 @@ export default {
   data() {
     return {
       isNewTask: false
+    }
+  },
+  computed: {
+    project() {
+      return this.$store.state.projects.filter(item => item.project_shortname === this.$route.params.name)
     }
   },
   methods: {

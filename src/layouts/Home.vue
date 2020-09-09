@@ -45,12 +45,17 @@ import NewProjectCard from "@/components/NewProjectCard"
 
 export default {
   components: { SearchBar, ProjectCard, NewProjectCard },
+  computed: {
+    newProject() {
+      return this.$store.state.newProject
+    }
+  },
   created() {
     this.$store.dispatch("get_projects")
   },
   watch: {
-    'this.$store.state.newProject' () {
-      console.log("asd")
+    newProject () {
+      this.$store.dispatch("get_projects")
     }
   }
 }
