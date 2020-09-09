@@ -19,8 +19,29 @@
       </div>
     </div>
     <div class="todos--wrapper mt-5">
-      <div class="todos--title pb-3 border-bottom border-gray-3 d-flex justify-content-between align-items-center">
-        <p class="font-size-24 mb-0" style="font-weight: 600;">All</p>
+      <div class="d-flex align-items-center justify-content-between border-gray-3 pb-3 border-bottom">
+        <div class="todos--title d-flex justify-content-between align-items-center">
+          <p class="font-size-24 mb-0" style="font-weight: 600;">All</p>
+        </div>
+        <a-dropdown :trigger="['click']">
+          <a @click="e => e.preventDefault()">
+            Filter Workspace <a-icon type="down" />
+          </a>
+          <a-menu slot="overlay">
+            <a-menu-item key="0">
+              All
+            </a-menu-item>
+            <a-menu-item key="1">
+              Completed
+            </a-menu-item>
+            <a-menu-item key="2">
+              Active
+            </a-menu-item>
+            <a-menu-item key="3">
+              Deleted
+            </a-menu-item>
+          </a-menu>
+        </a-dropdown>
       </div>
       <div class="todos--content-wrapper">
         <div class="todo my-4" v-for="(item, key) in 4" :key="key">
@@ -32,7 +53,7 @@
 </template>
 
 <script>
-import Todo from "./Todo"
+import Todo from "@/components/Todo"
 import NewTask from "@/views/NewTask"
 
 export default {
