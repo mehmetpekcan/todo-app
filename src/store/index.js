@@ -83,10 +83,8 @@ export default new Vuex.Store({
 
       if (res.data !== null) {
         commit("SET_STATE", { todos: Object.entries(res.data) })
-        commit("SET_STATE", { todoSpin: false })
-      } else {
-        commit("SET_STATE", { todoSpin: false })
       }
+      commit("SET_STATE", { todoSpin: false })
     },
     async delete_todo({ commit, state }, payload) {
       commit("SET_STATE", { isDelete: true })

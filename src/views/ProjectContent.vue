@@ -18,7 +18,7 @@
         <span>Add New Task</span>
       </div>
     </div>
-    <div class="todos--wrapper mt-5" v-if="$store.state.todos.length > 0">
+    <div class="todos--wrapper mt-5">
       <div class="d-flex align-items-center justify-content-between border-gray-3 pb-3 border-bottom">
         <div class="todos--title d-flex justify-content-between align-items-center">
           <p class="font-size-24 mb-0" style="font-weight: 600;">{{ activeTasksTitle }}</p>
@@ -38,12 +38,13 @@
       </div>
       <div class="todos--content-wrapper">
         <a-spin :spinning="$store.state.todoSpin" tip="Todos fetching...">
-          <div class="todo my-4" v-for="(item, key) in $store.state.todos" :key="key">
+          <div class="todo my-4" v-for="item in todos" :key="item[0]">
             <todo :project="item" />
           </div>
         </a-spin>
       </div>
     </div>
+    <!--
     <div v-else class="d-flex flex-column align-items-center">
       <div class="width-500" style="margin-top: 10rem;">
         <img class="w-100" src="@/assets/images/no-data.svg" alt="No todos">
@@ -51,6 +52,7 @@
       <p class="font-weight-bold font-size-32 mt-3 mb-0">Currently, you don't have any todos.</p>
       <p>Create your first todo!</p>
     </div>
+    -->
   </div>
 </template>
 
@@ -62,7 +64,7 @@ export default {
   data() {
     return {
       project: "",
-      activeTasksTitle: "All"
+      activeTasksTitle: "All",
     }
   },
   computed: {
@@ -72,12 +74,17 @@ export default {
     isDelete() {
       return this.$store.state.isDelete
     },
+    todos() {
+      return this.$store.state.todos
+    }
   },
   mounted() {
     const getProjects = setInterval(() => {
       if (this.$store.state.projects.length > 0) {
         this.project = this.$store.state.projects.filter(item => item[1].project_shortname === this.$route.params.name)
-        this.$store.dispatch("get_todos", this.project[0])
+        this.$store.dispatch("get_todos", this.project[0]).then(() => {
+          this.filteredTodos = this.$store.state.todos
+        })
         clearInterval(getProjects)
       }
     })
@@ -85,6 +92,21 @@ export default {
   methods: {
     filterChange(e) {
       this.activeTasksTitle = e
+      this.$store.commit("SET_STATE", { todoSpin: true })
+      this.$store.dispatch("get_todos", this.project[0])
+        .then(() => {
+          if (e === "All") {
+            return
+          } else if (e === "Actives") {
+            const filteredTodos = this.todos.filter(item => item[1].completed === 0)
+            this.$store.commit("SET_STATE", { todos: filteredTodos })
+          } else {
+            const filteredTodos = this.todos.filter(item => item[1].completed === 1)
+            this.$store.commit("SET_STATE", { todos: filteredTodos })
+          }
+
+          this.$store.commit("SET_STATE", { todoSpin: false })
+        })
     }
   },
   watch: {
