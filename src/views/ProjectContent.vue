@@ -1,6 +1,6 @@
 <template>
   <div style="overflow-y: scroll !important;">
-    <a-modal v-model="isNewTask" title="Add New Task" :footer="null">
+    <a-modal v-model="$store.state.isNewTask" title="Add New Task" :footer="null">
       <new-task :projectKey="project[0]" />
     </a-modal>
 
@@ -10,7 +10,7 @@
         <p class="mb-0 font-size-12 w-50 text-secondary">{{ project[0][1].project_description }}</p>
       </div>
       <div 
-        @click="isNewTask = true"
+        @click="$store.commit('SET_STATE', { isNewTask: true })"
         class="d-flex align-items-center bg-success text-white px-3 py-2 rounded"
         style="box-shadow: 0 5px 10px -8px rgb(6, 127, 22); cursor: pointer;"
         >
@@ -46,7 +46,7 @@
       <div class="todos--content-wrapper">
         <a-spin :spinning="$store.state.todoSpin" tip="Todos fetching...">
           <div class="todo my-4" v-for="(item, key) in $store.state.todos" :key="key">
-            <todo :projectKey="project[0]" />
+            <todo :project="item[1]" />
           </div>
         </a-spin>
       </div>
@@ -61,16 +61,22 @@ import NewTask from "@/views/NewTask"
 export default {
   data() {
     return {
-      isNewTask: false
+      project: ""
     }
   },
   computed: {
-    project() {
-      return this.$store.state.projects.filter(item => item[1].project_shortname === this.$route.params.name)
+    newTodo() {
+      return this.$store.state.newTodo
     }
   },
-  created() {
+  beforeMount() {
+    this.project = this.$store.state.projects.filter(item => item[1].project_shortname === this.$route.params.name)
     this.$store.dispatch("get_todos", this.project[0])
+  },
+  watch: {
+    newTodo() {
+      this.$store.dispatch("get_todos", this.project[0])
+    }
   },
   components: { Todo, NewTask },
 }  

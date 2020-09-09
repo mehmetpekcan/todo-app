@@ -6,30 +6,30 @@
       <input type="checkbox" v-model="isCompleted">
     </div>
     <div class="todo--content text-dark font-size-14" style="width: 90%;">
-      <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit.  nemo pariatur!</p>
+      <p class="mb-0">{{ project.description }}</p>
     </div>
   </div>
-  <div class="d-flex" style="width: 35">
-    <div class="todo--tags">
-      <span class="todo--tags-tag p-1 px-2 first font-size-12">First Pri.</span>
-      <span class="todo--tags-tag p-1 px-2 second font-size-12">Second Pri.</span>
-      <span class="todo--tags-tag p-1 px-2 third font-size-12">Third Pri.</span>
+  <div class="d-flex align-items-center" style="width: 35">
+    <div class="todo--tags d-flex align-items-center" v-if="typeof tags !== 'undefined'">
+      <span class="todo--tags-tag px-2 p-1 first font-size-12" v-if="tags.some(item => item === '0')">First Pri.</span>
+      <span class="todo--tags-tag px-2 p-1 second font-size-12" v-if="tags.some(item => item === '1')">Second Pri.</span>
+      <span class="todo--tags-tag px-2 p-1 third font-size-12" v-if="tags.some(item => item === '2')">Third Pri.</span>
     </div>
-    <div class="todo--timer font-size-12 p-1 px-2">
+    <div class="todo--timer font-size-12 px-2 mr-2 p-1" v-if="typeof counter !== 'undefined'">
       <i class="fas fa-stopwatch mr-1"></i>
-      <span class="">30 min</span>
+      <span class="m-0">{{ counter.slice(0, 2) }} hours {{ counter.slice(3, 5) }} min.</span>
     </div>
-  </div>
-  <div class="todo--delete">
-    <a-popconfirm
-      placement="bottom"
-      title="Are you sure to delete task?"
-      ok-text="Yes"
-      cancel-text="No"
-      @confirm="deleteTask"
-      >
-      <i class="fas fa-trash" />
-    </a-popconfirm>
+    <div class="todo--delete d-flex align-items-center p-1">
+      <a-popconfirm
+        placement="bottom"
+        title="Are you sure to delete task?"
+        ok-text="Yes"
+        cancel-text="No"
+        @confirm="deleteTask"
+        >
+        <i class="fas fa-trash" />
+      </a-popconfirm>
+    </div>
   </div>
 </div>
 </template>
@@ -40,6 +40,17 @@ export default {
     return {
       isCompleted: false,
     }
+  },
+  computed: {
+    tags() {
+      return this.project.tags
+    },
+    counter() {
+      return this.project.counter
+    }
+  },
+  props: {
+    project: { required: true }
   },
   methods: {
     deleteTask() {
@@ -104,7 +115,6 @@ export default {
     &-tag {
       color: $white;
       border-radius: .2rem;
-      padding: .2rem .8rem;
       background-color: $red;
       margin-right: 1rem;
       font-weight: 600;
@@ -140,7 +150,6 @@ export default {
     position: relative;
     cursor: pointer;
     box-shadow: 0 5px 10px -7px $red;
-    padding: .2rem .5rem;
     background: $red;
     border-radius: .2rem;
     color: $white;

@@ -50,10 +50,6 @@ export default {
       return this.$store.state.newProject
     }
   },
-  created() {
-    this.$store.dispatch("get_projects")
-    this.$store.dispatch("post_newTodo")
-  },
   watch: {
     newProject () {
       this.$store.dispatch("get_projects")

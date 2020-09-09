@@ -10,7 +10,9 @@ export default new Vuex.Store({
     newProject: false,
     newTodo: false,
     todoSpin: false,
+    isCreatingNewTodo: false,
     todos: [],
+    isNewTask: false,
   },
   mutations: {
     SET_STATE(state, payload) {
@@ -46,21 +48,33 @@ export default new Vuex.Store({
     |
     -----------------------------------*/
     async post_newTodo({ commit }, payload) {
+      commit("SET_STATE", { isCreatingNewTodo: true })
+
+      const projectKey = payload.projectKey
       const id = parseInt(Math.random() * 100 + Math.random() * 200)
-      const res = await axios.patch(`https://todo-app-11-7692e.firebaseio.com/projects/${payload.projectKey}/todos/${id}.json`, { 
+      const res = await axios.patch(`https://todo-app-11-7692e.firebaseio.com/projects/${projectKey}/todos/${id}.json`, { 
         ...payload.data
       })
       if (res.data !== null) {
         commit("SET_STATE", { newTodo: true })
+        commit("SET_STATE", { isNewTask: false })
+        commit("SET_STATE", { isCreatingNewTodo: false })
       }
     },
+    /*-----------------------------------
+    |
+    | To get todos based on project id,
+    | @payload[0] represent id
+    |
+    -----------------------------------*/
     async get_todos({ commit }, payload) {
+      const projectId = payload[0]
+
       commit("SET_STATE", { todoSpin: true })
-      const res = await axios.get(`https://todo-app-11-7692e.firebaseio.com/projects/${payload[0]}/todos.json`)
+      const res = await axios.get(`https://todo-app-11-7692e.firebaseio.com/projects/${projectId}/todos.json`)
       
       commit("SET_STATE", { todos: Object.entries(res.data) })
       commit("SET_STATE", { todoSpin: false })
-      
     }
   },
 
