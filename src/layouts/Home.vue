@@ -13,15 +13,17 @@
             </div>
             <div>
               <p class="d-flex font-size-16 text-white mt-5">Projects <span class="font-size-14 text-light ml-2">({{ projects.length }})</span></p>
-              <div class="d-flex flex-wrap projectCards">
-                <div v-for="(item, key) in projects" :key="key" class="my-3 projectCard">
-                  <router-link exact :to="{ name: 'Project', params: { name: item[1].project_shortname }}">
-                    <project-card :project="item" :gradientKey="key" />
-                  </router-link>
-                </div>
-                <div class="my-3" style="width: 30%;">
-                  <new-project-card />
-                </div>
+              <div class="projectCards">
+                <transition-group name="list" tag="div" class="d-flex flex-wrap">
+                  <div v-for="(item, key) in projects" :key="key" class="my-3 projectCard">
+                    <router-link exact :to="{ name: 'Project', params: { name: item[1].project_shortname }}">
+                      <project-card :project="item" :gradientKey="key" />
+                    </router-link>
+                  </div>
+                  <div class="my-3 projectCard" :key="99">
+                    <new-project-card />
+                  </div>
+                </transition-group>
               </div>
             </div>
           </div>
@@ -69,6 +71,8 @@ export default {
 <style lang="scss" scoped>
 
 .projectCards {
+  width: 100%;
+
   & .projectCard {
     width: 30% !important;
     margin-right: 5%;
