@@ -12,8 +12,15 @@
     <div class="d-flex align-items-center" style="width: 35">
       <div class="todo--tags d-flex align-items-center" v-if="typeof tags !== 'undefined'">
         <span class="todo--tags-tag px-2 p-1 first font-size-12" v-if="tags.some(item => item === '0')">First Pri.</span>
-        <span class="todo--tags-tag px-2 p-1 second font-size-12" v-if="tags.some(item => item === '1')">Second Pri.</span>
-        <span class="todo--tags-tag px-2 p-1 third font-size-12" v-if="tags.some(item => item === '2')">Third Pri.</span>
+        <span class="todo--tags-tag px-2 p-1 second font-size-12" v-else-if="tags.some(item => item === '1')">Second Pri.</span>
+        <span class="todo--tags-tag px-2 p-1 third font-size-12" v-else-if="tags.some(item => item === '2')">Third Pri.</span>
+        <span
+          v-else
+          class="todo--tags-tag px-2 p-1 others font-size-12"
+          v-for="(tag, key) in tags" :key="key"
+          >
+          {{ tag }}
+        </span>
       </div>
       <div class="todo--timer font-size-12 px-2 mr-2 p-1" v-if="typeof counter !== 'undefined'">
         <i class="fas fa-stopwatch mr-1"></i>
@@ -47,7 +54,7 @@ export default {
     },
     counter() {
       return this.project[1].counter
-    }
+    },
   },
   props: {
     project: { required: true }
@@ -146,6 +153,12 @@ export default {
         background-color: #b0b2ff;
         color: #686de0;
         box-shadow: 0 5px 10px -7px #686de0;
+      }
+
+      &.others {
+        background-color: #bdc3c7;
+        color: #ecf0f1;
+        box-shadow: 0 5px 10px -7px #bdc3c7;
       }
     }
   }
