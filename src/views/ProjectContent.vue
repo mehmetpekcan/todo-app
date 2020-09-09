@@ -5,7 +5,7 @@
     </a-modal>
 
     <div class="d-flex justify-content-between align-items-center">
-      <div class="title">
+      <div class="title" v-if="project.length > 0">
         <p class="mb-1 font-size-16 text-dark text-uppercase font-weight-bold">{{ project[0].project_name }}</p>
         <p class="mb-0 font-size-12 w-50 text-secondary">{{ project[0].project_description }}</p>
       </div>
