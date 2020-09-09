@@ -5,6 +5,14 @@
   </div>
 </template>
 
+<script>
+export default {
+  computed: {
+    
+  }
+}
+</script>
+
 <style lang="scss" scoped>
 @import "@/assets/styles/mixins.scss";
 

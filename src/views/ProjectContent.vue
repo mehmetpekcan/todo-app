@@ -18,7 +18,14 @@
         <span>Add New Task</span>
       </div>
     </div>
-    <div class="todos--wrapper mt-5">
+    <div v-if="activeTasksTitle === 'All' && todos.length === 0" class="d-flex flex-column align-items-center">
+      <div class="width-500" style="margin-top: 10rem;">
+        <img class="w-100" src="@/assets/images/no-data.svg" alt="No todos">
+      </div>
+      <p class="font-weight-bold font-size-32 mt-3 mb-0">Currently, you don't have any todos.</p>
+      <p>Create your first todo!</p>
+    </div>
+    <div class="todos--wrapper mt-5" v-else>
       <div class="d-flex align-items-center justify-content-between border-gray-3 pb-3 border-bottom">
         <div class="todos--title d-flex justify-content-between align-items-center">
           <p class="font-size-24 mb-0" style="font-weight: 600;">{{ activeTasksTitle }}</p>
@@ -44,21 +51,13 @@
         </a-spin>
       </div>
     </div>
-    <!--
-    <div v-else class="d-flex flex-column align-items-center">
-      <div class="width-500" style="margin-top: 10rem;">
-        <img class="w-100" src="@/assets/images/no-data.svg" alt="No todos">
-      </div>
-      <p class="font-weight-bold font-size-32 mt-3 mb-0">Currently, you don't have any todos.</p>
-      <p>Create your first todo!</p>
-    </div>
-    -->
   </div>
 </template>
 
 <script>
 import Todo from "@/components/Todo"
 import NewTask from "@/views/NewTask"
+import { mapActions } from "vuex"
 
 export default {
   data() {
@@ -82,18 +81,20 @@ export default {
     const getProjects = setInterval(() => {
       if (this.$store.state.projects.length > 0) {
         this.project = this.$store.state.projects.filter(item => item[1].project_shortname === this.$route.params.name)
-        this.$store.dispatch("get_todos", this.project[0]).then(() => {
-          this.filteredTodos = this.$store.state.todos
-        })
+        this.get_todos(this.project[0])
+          .then(() => {
+            this.filteredTodos = this.$store.state.todos
+          })
         clearInterval(getProjects)
       }
     })
   },
   methods: {
+    ...mapActions(['get_todos',]),
     filterChange(e) {
       this.activeTasksTitle = e
       this.$store.commit("SET_STATE", { todoSpin: true })
-      this.$store.dispatch("get_todos", this.project[0])
+      this.get_todos(this.project[0])
         .then(() => {
           if (e === "All") {
             return
@@ -111,11 +112,11 @@ export default {
   },
   watch: {
     newTodo() {
-      this.$store.dispatch("get_todos", this.project[0])
+      this.get_todos(this.project[0])
     },
     isDelete(val) {
       if (val === false) {
-        this.$store.dispatch("get_todos", this.project[0])
+        this.get_todos(this.project[0])
       }
     }
   },
