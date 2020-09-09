@@ -52,6 +52,7 @@ export default {
   },
   created() {
     this.$store.dispatch("get_projects")
+    this.$store.dispatch("post_newTodo")
   },
   watch: {
     newProject () {

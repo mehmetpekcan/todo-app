@@ -20,7 +20,7 @@ export default new Vuex.Store({
     -----------------------------------*/
     async get_projects({ commit }) {
       const res = await axios.get("https://todo-app-11-7692e.firebaseio.com/projects.json")
-      commit("SET_STATE", { projects: Object.values(res.data) })
+      commit("SET_STATE", { projects: Object.entries(res.data) })
     },
     /*-----------------------------------
     | To post new project
@@ -34,6 +34,14 @@ export default new Vuex.Store({
         commit("SET_STATE", { newProject: false })
         return true
       }
+    },
+    async post_newTodo({ commit }, payload) {
+      const id = parseInt(Math.random() * 100 + Math.random() * 200)
+      const res = await axios.patch(`https://todo-app-11-7692e.firebaseio.com/projects/${payload.projectKey}/todos/${id}.json`, { 
+        ...payload.data
+      })
+      commit("SET_STATE")
+      console.log("bu res", res)
     }
   },
 

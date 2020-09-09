@@ -9,14 +9,14 @@
         />
     </a-form-item>
     <a-form-item label="Tags (You can add your own tags just write)">
-      <a-select mode="tags" style="width: 100%" :token-separators="[',']" size="large">
+      <a-select mode="tags" style="width: 100%" :token-separators="[',']" size="large" v-decorator="['tags']">
         <a-select-option v-for="(item, key) in ['First', 'Second', 'Third']" :key="key.toString()">
           {{ item }} Priority
         </a-select-option>
       </a-select>
     </a-form-item>
     <a-form-item label="Countdown">
-      <a-time-picker size="large" format="HH:mm" />
+      <a-time-picker v-decorator="['counter']" size="large" format="HH:mm" />
       <a-tooltip>
         <template #title>
           You can set how much time will take the task to countdown.
@@ -25,7 +25,7 @@
       </a-tooltip>
     </a-form-item>
     <a-form-item>
-      <a-button type="primary" size="large" block>Create New Task</a-button>
+      <a-button @click="submitNewTodo" type="primary" size="large" block>Create New Task</a-button>
     </a-form-item>
   </a-form>
 </div>
@@ -36,6 +36,29 @@
 export default {
   data() {
     return {
+    }
+  },
+  props: {
+    projectKey: {
+      required: true
+    }
+  },
+  methods: {
+    submitNewTodo() {
+      this.form.validateFields((err, values) => {
+        if (!err) {
+          let { description, counter, tags } = values
+          counter = values.counter._d.toString()
+          this.$store.dispatch("post_newTodo", {
+            data: {
+              description,
+              tags,
+              counter: counter.slice(16, 21)
+            },
+            projectKey: this.projectKey[0]
+          })
+        }
+      })
     }
   },
   created() {

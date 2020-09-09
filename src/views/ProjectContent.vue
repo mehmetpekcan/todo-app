@@ -1,16 +1,16 @@
 <template>
   <div style="overflow-y: scroll !important;">
     <a-modal v-model="isNewTask" title="Add New Task" :footer="null">
-      <new-task />
+      <new-task :projectKey="project[0]" />
     </a-modal>
 
     <div class="d-flex justify-content-between align-items-center">
       <div class="title" v-if="project.length > 0">
-        <p class="mb-1 font-size-16 text-dark text-uppercase font-weight-bold">{{ project[0].project_name }}</p>
-        <p class="mb-0 font-size-12 w-50 text-secondary">{{ project[0].project_description }}</p>
+        <p class="mb-1 font-size-16 text-dark text-uppercase font-weight-bold">{{ project[0][1].project_name }}</p>
+        <p class="mb-0 font-size-12 w-50 text-secondary">{{ project[0][1].project_description }}</p>
       </div>
       <div 
-        @click="newTask"
+        @click="isNewTask = true"
         class="d-flex align-items-center bg-success text-white px-3 py-2 rounded"
         style="box-shadow: 0 5px 10px -8px rgb(6, 127, 22); cursor: pointer;"
         >
@@ -45,7 +45,7 @@
       </div>
       <div class="todos--content-wrapper">
         <div class="todo my-4" v-for="(item, key) in 4" :key="key">
-          <todo />
+          <todo :projectKey="project[0]" />
         </div>
       </div>
     </div>
@@ -64,12 +64,7 @@ export default {
   },
   computed: {
     project() {
-      return this.$store.state.projects.filter(item => item.project_shortname === this.$route.params.name)
-    }
-  },
-  methods: {
-    newTask() {
-      this.isNewTask = true
+      return this.$store.state.projects.filter(item => item[1].project_shortname === this.$route.params.name)
     }
   },
   components: { Todo, NewTask },
