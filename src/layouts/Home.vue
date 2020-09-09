@@ -13,8 +13,8 @@
             </div>
             <div>
               <p class="d-flex font-size-16 text-white mt-5">Projects <span class="font-size-14 text-light ml-2">({{ projects.length }})</span></p>
-              <div class="d-flex flex-wrap justify-content-between">
-                <div v-for="(item, key) in projects" :key="key" class="my-3" style="width: 30%;">
+              <div class="d-flex flex-wrap projectCards">
+                <div v-for="(item, key) in projects" :key="key" class="my-3 projectCard">
                   <router-link exact :to="{ name: 'Project', params: { name: item[1].project_shortname }}">
                     <project-card :project="item" :gradientKey="key" />
                   </router-link>
@@ -47,38 +47,38 @@ import NewProjectCard from "@/components/NewProjectCard"
 
 export default {
   components: { SearchBar, ProjectCard, NewProjectCard },
-  data() {
-    return {
-      projects: []
-    }
-  },
   computed: {
     newProject() {
       return this.$store.state.newProject
+    },
+    projects() {
+      return this.$store.state.projects
     }
   },
   watch: {
     newProject () {
       this.$store.dispatch("get_projects")
-        .then(res => {
-          if (res) {
-            this.projects = this.$store.state.projects
-          }
-        })
     }
   },
   created() {
     this.$store.dispatch("get_projects")
-      .then(res => {
-        if (res) {
-          this.projects = this.$store.state.projects
-        }
-      })
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+
+.projectCards {
+  & .projectCard {
+    width: 30% !important;
+    margin-right: 5%;
+
+    &:nth-child(3n) {
+      margin-right: 0;
+    }
+  }
+}
+
 .fade-enter-active, .fade-leave-active {
   transition: opacity .3s ease-in-out;
 }

@@ -18,6 +18,7 @@
         <span>Add New Task</span>
       </div>
     </div>
+    <!--
     <div v-if="activeTasksTitle === 'All' && todos.length === 0" class="d-flex flex-column align-items-center">
       <div class="width-500" style="margin-top: 10rem;">
         <img class="w-100" src="@/assets/images/no-data.svg" alt="No todos">
@@ -25,7 +26,8 @@
       <p class="font-weight-bold font-size-32 mt-3 mb-0">Currently, you don't have any todos.</p>
       <p>Create your first todo!</p>
     </div>
-    <div class="todos--wrapper mt-5" v-else>
+  -->
+    <div class="todos--wrapper mt-5">
       <div class="d-flex align-items-center justify-content-between border-gray-3 pb-3 border-bottom">
         <div class="todos--title d-flex justify-content-between align-items-center">
           <p class="font-size-24 mb-0" style="font-weight: 600;">{{ activeTasksTitle }}</p>
