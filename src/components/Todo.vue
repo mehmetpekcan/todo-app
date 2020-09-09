@@ -149,10 +149,10 @@ export default {
   .todo--delete {
     position: relative;
     cursor: pointer;
-    box-shadow: 0 5px 10px -7px $red;
-    background: $red;
+    box-shadow: 0 5px 10px -7px $dark-gray;
+    background: $gray-2;
     border-radius: .2rem;
-    color: $white;
+    color: $dark-gray;
   }
 }
 
