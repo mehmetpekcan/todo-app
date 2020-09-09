@@ -1,4 +1,4 @@
-# menu-app
+# todo-app
 
 ## Project setup
 ```
