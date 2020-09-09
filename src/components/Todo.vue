@@ -57,7 +57,7 @@ export default {
       this.$store.dispatch("delete_todo", this.project[0])
     },
     statusChange() {
-      const completed = this.isCompleted === true ? 1 : 0
+      const completed = this.isCompleted ? 0 : 1
       this.$store.dispatch("change_todoStatus", { id: this.project[0], completed })
     }
   },
