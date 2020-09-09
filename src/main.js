@@ -6,10 +6,6 @@ import store from "./store"
 /** Ant Design Component Library */
 import "@/Antd"
 
-/** Page Transition for Route */
-import VuePageTransition from 'vue-page-transition'
-Vue.use(VuePageTransition)
-
 /**
  * 
  * Project general css files.

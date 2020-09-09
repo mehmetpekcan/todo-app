@@ -32,9 +32,7 @@
       <div class="col-lg-8 bg-white h-100" style="border-radius: 1rem; overflow-y: scroll;">
         <div class="row">
           <div class="col-xl-12" style="padding: 5rem;">
-            <vue-page-transition name="fade-in">
-              <router-view :key="$route.path" />
-            </vue-page-transition>
+            <router-view :key="$route.path" />
           </div>
         </div>
       </div>
