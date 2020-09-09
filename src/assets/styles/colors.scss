@@ -1,9 +1,5 @@
 @import "./mixins.scss";
 
-.gradient-dark {
-  background: linear-gradient(145deg, #262b41, #222f3e);
-}
-
 .text {
   &-default {
     color: $default !important;
