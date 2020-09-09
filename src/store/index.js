@@ -13,7 +13,6 @@ export default new Vuex.Store({
     isCreatingNewTodo: false,
     todos: [],
     isNewTask: false,
-    emptyTodos: false,
     isDelete: false,
     currentProjectID: ""
   },
@@ -75,6 +74,7 @@ export default new Vuex.Store({
     |
     -----------------------------------*/
     async get_todos({ commit }, payload) {
+      commit("SET_STATE", { todos: [] })
       const projectId = payload[0]
 
       commit("SET_STATE", { todoSpin: true })
@@ -83,10 +83,8 @@ export default new Vuex.Store({
 
       if (res.data !== null) {
         commit("SET_STATE", { todos: Object.entries(res.data) })
-        commit("SET_STATE", { emptyTodos: false })
         commit("SET_STATE", { todoSpin: false })
       } else {
-        commit("SET_STATE", { emptyTodos: true })
         commit("SET_STATE", { todoSpin: false })
       }
     },

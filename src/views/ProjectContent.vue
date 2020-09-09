@@ -18,30 +18,23 @@
         <span>Add New Task</span>
       </div>
     </div>
-    <div class="todos--wrapper mt-5" v-if="!$store.state.emptyTodos">
+    <div class="todos--wrapper mt-5" v-if="$store.state.todos.length > 0">
       <div class="d-flex align-items-center justify-content-between border-gray-3 pb-3 border-bottom">
         <div class="todos--title d-flex justify-content-between align-items-center">
-          <p class="font-size-24 mb-0" style="font-weight: 600;">All</p>
+          <p class="font-size-24 mb-0" style="font-weight: 600;">{{ activeTasksTitle }}</p>
         </div>
-        <a-dropdown :trigger="['click']">
-          <a @click="e => e.preventDefault()">
-            Filter Workspace <a-icon type="down" />
-          </a>
-          <a-menu slot="overlay">
-            <a-menu-item key="0">
-              All
-            </a-menu-item>
-            <a-menu-item key="1">
-              Completed
-            </a-menu-item>
-            <a-menu-item key="2">
-              Active
-            </a-menu-item>
-            <a-menu-item key="3">
-              Deleted
-            </a-menu-item>
-          </a-menu>
-        </a-dropdown>
+        
+        <a-select default-value="All" style="width: 10rem" @change="filterChange">
+          <a-select-option value="All">
+            All
+          </a-select-option>
+          <a-select-option value="Actives">
+            Actives
+          </a-select-option>
+          <a-select-option value="Completed">
+            Completed
+          </a-select-option>
+        </a-select>
       </div>
       <div class="todos--content-wrapper">
         <a-spin :spinning="$store.state.todoSpin" tip="Todos fetching...">
@@ -69,6 +62,7 @@ export default {
   data() {
     return {
       project: "",
+      activeTasksTitle: "All"
     }
   },
   computed: {
@@ -87,6 +81,11 @@ export default {
         clearInterval(getProjects)
       }
     })
+  },
+  methods: {
+    filterChange(e) {
+      this.activeTasksTitle = e
+    }
   },
   watch: {
     newTodo() {
