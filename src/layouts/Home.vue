@@ -12,10 +12,10 @@
               <search-bar></search-bar>
             </div>
             <div>
-              <p class="d-flex font-size-16 text-white mt-5">Projects <span class="font-size-14 text-light ml-2">({{ mockCards.length }})</span></p>
+              <p class="d-flex font-size-16 text-white mt-5">Projects <span class="font-size-14 text-light ml-2">({{ $store.state.projects.length }})</span></p>
               <div class="d-flex flex-wrap justify-content-between">
-                <div v-for="(item, key) in mockCards" :key="key" class="my-3" style="width: 30%;">
-                  <project-card :project="item" />
+                <div v-for="(item, key) in $store.state.projects" :key="key" class="my-3" style="width: 30%;">
+                  <project-card :project="item" :gradientKey="key" />
                 </div>
                 <div class="my-3" style="width: 30%;">
                   <new-project-card />
@@ -44,43 +44,15 @@ import ProjectCard from "@/components/ProjectCard"
 import NewProjectCard from "@/components/NewProjectCard"
 
 export default {
-  data() {
-    return {
-      mockCards: [
-        {
-          key: 1,
-          slug: "green-house",
-          name: "Green House",
-          shorthand: "GH",
-        },
-        {
-          key: 2,
-          slug: "cyber-punk",
-          name: "Cyber Punk",
-          shorthand: "CP",
-        },
-        {
-          key: 3,
-          slug: "easy-crypto",
-          name: "Easy Crpyto",
-          shorthand: "EC",
-        },
-        {
-          key: 4,
-          slug: "travel-app",
-          name: "Travel App",
-          shorthand: "TA",
-        },
-        {
-          key: 5,
-          slug: "landing-page",
-          name: "Landing Page",
-          shorthand: "LP",
-        },
-      ]
-    }
+  components: { SearchBar, ProjectCard, NewProjectCard },
+  created() {
+    this.$store.dispatch("get_projects")
   },
-  components: { SearchBar, ProjectCard, NewProjectCard }
+  watch: {
+    'this.$store.state.newProject' () {
+      console.log("asd")
+    }
+  }
 }
 </script>
 

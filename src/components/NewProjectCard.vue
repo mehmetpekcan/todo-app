@@ -1,18 +1,20 @@
 <template>
   <div>
     <a-modal v-model="isNewProject" :footer="null" :closable="false">
-      <a-form :form="form">
-        <a-form-item label="Project Name:">
-          <a-input v-decorator="['project_name', { rules: [{ required: true, message: 'Please enter a project name '}]}]" />
-        </a-form-item>
-        <a-form-item label="Project Shortname:">
-          <a-input v-decorator="['project_shortname', { rules: [{ required: true, message: 'Please enter project shortname '}]}]" />
-        </a-form-item>
-        <a-form-item label="Project Description:">
-          <a-textarea v-decorator="['project_description', { rules: [{ required: true, message: 'Please enter the project description '}]}]" :rows="3" />
-        </a-form-item>
-        <a-button @click="submitNewProject" size="large" type="primary" block>Create Project</a-button>
-      </a-form>
+      <a-spin tip="Project Creating..." :spinning="$store.state.newProject">
+        <a-form :form="form">
+          <a-form-item label="Project Name:">
+            <a-input v-decorator="['project_name', { rules: [{ required: true, message: 'Please enter a project name '}]}]" />
+          </a-form-item>
+          <a-form-item label="Project Shortname:">
+            <a-input v-decorator="['project_shortname', { rules: [{ required: true, message: 'Please enter project shortname '}]}]" />
+          </a-form-item>
+          <a-form-item label="Project Description:">
+            <a-textarea v-decorator="['project_description', { rules: [{ required: true, message: 'Please enter the project description '}]}]" :rows="3" />
+          </a-form-item>
+          <a-button @click="submitNewProject" size="large" type="primary" block>Create Project</a-button>
+        </a-form>
+      </a-spin>
     </a-modal>
     <div
       class="project--card-wrapper d-flex flex-column aling-items-center justify-content-center text-center"
@@ -36,7 +38,13 @@ export default {
     submitNewProject() {
       this.form.validateFields((err, values) => {
         if (!err) {
-          console.log("submit", values)
+          this.$store.commit("SET_STATE", { newProject: true })
+          this.$store.dispatch("post_newProject", values)
+            .then(res => {
+              if (res) {
+                this.isNewProject = false
+              }
+            })
         }
       })
     }
