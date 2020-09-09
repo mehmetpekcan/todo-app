@@ -5,7 +5,7 @@
         <div class="row h-100 d-flex justify-content-center">
           <div class="col-xl-9 d-flex flex-column justify-content-center">
             <div>
-              <p class="mb-0 text-white font-size-36 font-weight-bold">Hi Mehmet</p>
+              <p class="mb-0 text-white font-size-36 font-weight-bold">Hi There</p>
               <p class="mb-0 font-size-14 text-light">Welcome back to the workspace, we missed you!</p>
             </div>
             <div class="my-4">
@@ -32,7 +32,9 @@
       <div class="col-lg-8 bg-white h-100" style="border-radius: 1rem; overflow-y: scroll;">
         <div class="row">
           <div class="col-xl-12" style="padding: 5rem;">
-            <router-view :key="$route.path" />
+            <transition name="fade" mode="out-in">
+              <router-view :key="$route.path" />
+            </transition>
           </div>
         </div>
       </div>
@@ -82,7 +84,7 @@ export default {
 }
 
 .fade-enter-active, .fade-leave-active {
-  transition: opacity .3s ease-in-out;
+  transition: opacity .3s ease-in;
 }
 .fade-enter, .fade-leave-to {
   opacity: 0;
