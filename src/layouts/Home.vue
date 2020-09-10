@@ -20,7 +20,7 @@
                       <project-card :project="item" :gradientKey="key" />
                     </router-link>
                   </div>
-                  <div class="my-3 projectCard" :key="99">
+                  <div class="my-3 projectCard" :key="99" v-if="$store.state.projects.length <= 5">
                     <new-project-card />
                   </div>
                 </transition-group>
