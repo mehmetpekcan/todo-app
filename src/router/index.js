@@ -8,8 +8,13 @@ const routes = [
   {
     name: 'Home',
     path: '/',
+    redirect: "/project",
     component: Home,
     children: [
+      {
+        path: "/project",
+        component: () => import("@/views/Welcome")
+      },
       {
         name: "Project",
         path: "/project/:name",
