@@ -26,7 +26,7 @@
       <p class="font-weight-bold font-size-32 mt-3 mb-0">Currently, you don't have any todos.</p>
       <p>Create your first todo!</p>
     </div>
-  -->
+    -->
     <div class="todos--wrapper mt-5">
       <div class="d-flex align-items-center justify-content-between border-gray-3 pb-3 border-bottom">
         <div class="todos--title d-flex justify-content-between align-items-center">
@@ -117,10 +117,12 @@ export default {
   watch: {
     newTodo() {
       this.get_todos(this.project[0])
+      this.$store.commit("SET_STATE", { newTodo: false })
     },
     isDelete(val) {
       if (val === false) {
         this.get_todos(this.project[0])
+        this.$store.commit("SET_STATE", { isDelete: false })
       }
     }
   },
