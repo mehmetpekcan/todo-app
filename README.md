@@ -1,4 +1,8 @@
-# todo-app
+# New generation to-do App
+
+## Project Demo
+```
+https://todo-app-gtr.netlify.app/
 
 ## Project setup
 ```
@@ -13,11 +17,6 @@ npm run serve
 ### Compiles and minifies for production
 ```
 npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
 ```
 
 ### Customize configuration
