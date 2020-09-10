@@ -16,7 +16,7 @@
               <div class="projectCards">
                 <transition-group name="list" tag="div" class="d-flex flex-wrap">
                   <div v-for="(item, key) in projects" :key="key" class="my-3 projectCard">
-                    <router-link exact :to="{ name: 'Project', params: { name: item[1].project_shortname }}">
+                    <router-link tag="div" exact :to="{ name: 'Project', params: { name: item[1].project_shortname }}">
                       <project-card :project="item" :gradientKey="key" />
                     </router-link>
                   </div>
@@ -81,12 +81,5 @@ export default {
       margin-right: 0;
     }
   }
-}
-
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .3s ease-in;
-}
-.fade-enter, .fade-leave-to {
-  opacity: 0;
 }
 </style>

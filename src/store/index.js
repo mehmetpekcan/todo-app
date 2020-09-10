@@ -1,5 +1,6 @@
 import Vue from "vue"
 import Vuex from "vuex"
+import router from "@/router/"
 import axios from "axios"
 
 Vue.use(Vuex)
@@ -91,12 +92,22 @@ export default new Vuex.Store({
       await axios.delete(`https://todo-app-11-7692e.firebaseio.com/projects/${state.currentProjectID}/todos/${payload}.json`)
       commit("SET_STATE", { isDelete: false })
     },
+    /*-----------------------------------
+    | To change todos status complete or not
+    -----------------------------------*/
     async change_todoStatus({ state }, payload) {
       const { completed } = payload
       await axios.patch(`https://todo-app-11-7692e.firebaseio.com/projects/${state.currentProjectID}/todos/${payload.id}.json`, { 
         completed
       })
-    }
+    },
+    async delete_project({ commit }, payload) {
+      const res = await axios.delete(`https://todo-app-11-7692e.firebaseio.com/projects/${payload[0]}.json`)
+      if (res.data === null) {
+        commit("SET_STATE", { newProject: true })
+        router.push("/")
+      }
+    } 
   },
 
   /*----------------------------------------
