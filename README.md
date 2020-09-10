@@ -3,6 +3,7 @@
 ## Project Demo
 ```
 https://todo-app-gtr.netlify.app/
+```
 
 ## Project setup
 ```
