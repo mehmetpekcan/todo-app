@@ -7,11 +7,12 @@ import {
   Carousel, Input, Calendar, Badge, Slider, Form, Tooltip, Select, Switch,
   Tag, Affix, Spin, Alert, Checkbox, Tabs, Pagination, notification, Drawer,
   Cascader, DatePicker, TimePicker, Divider, Anchor, AutoComplete, BackTop, Collapse, Card, List, Popover,
-  Tree, Timeline, Row, Col, Transfer, Modal, message, Popconfirm, Skeleton, ConfigProvider, Comment,
+  Tree, Timeline, Row, Col, Transfer, Modal, message, Popconfirm, Skeleton, ConfigProvider, Comment, Statistic
 } from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css'
 
 
+Vue.use(Statistic)
 Vue.use(Skeleton)
 Vue.use(Avatar)
 Vue.use(Popconfirm)

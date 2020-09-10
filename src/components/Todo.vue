@@ -23,8 +23,25 @@
         </span>
       </div>
       <div class="todo--timer font-size-12 px-2 mr-2 p-1" v-if="typeof counter !== 'undefined'">
+        <a-popconfirm
+          v-if="!countStart"
+          title="Are you sure to start countdown?"
+          ok-text="Yes"
+          cancel-text="No"
+          @confirm="countStart = true"
+          >
+          <i class="fas fa-stopwatch mr-1"></i>
+          <span>
+            {{ counter.slice(0, 2) }}:{{ counter.slice(3, 5) }}:00
+          </span>
+        </a-popconfirm>
+        <div v-else class="d-flex align-items-center">
         <i class="fas fa-stopwatch mr-1"></i>
-        <span class="m-0">{{ counter.slice(0, 2) }} hours {{ counter.slice(3, 5) }} min.</span>
+        <a-statistic-countdown
+          :value="countdown"
+          @finish="countdownFinished"
+          />
+        </div>
       </div>
       <div class="todo--delete d-flex align-items-center p-1">
         <a-popconfirm
@@ -45,6 +62,7 @@
 export default {
   data() {
     return {
+      countStart: false,
       isCompleted: false,
     }
   },
@@ -55,11 +73,20 @@ export default {
     counter() {
       return this.project[1].counter
     },
+    countdown() {
+      const hour = this.counter.slice(0, 2)
+      const min = this.counter.slice(3, 5)
+      const time = Date.now() + Number(hour) * 60 * 60 * 1000 + Number(min) * 60 * 1000
+      return time
+    }
   },
   props: {
     project: { required: true }
   },
   methods: {
+    countdownFinished() {
+      console.log("Countdown finished feature will be added")
+    },
     deleteTask() {
       this.$store.dispatch("delete_todo", this.project[0])
     },
@@ -164,6 +191,8 @@ export default {
   }
   
   .todo--timer {
+    display: flex;
+    align-items: center;
     border-radius: .2rem;
     box-shadow: 0 5px 10px -5px $dark;
     background-color: $dark;
